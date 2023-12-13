@@ -1,10 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-// import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import PhonePicker from "../components/PhonePicker";
 import CountrySelection from "../components/CountrySelection";
-// import TextField from "@mui/material/TextField";
-// import { Input } from "postcss";
+
 
 const FormPage = () => {
   return (
@@ -194,6 +192,8 @@ const FormPage = () => {
                   type="text"
                   name="postal-code"
                   id="postal-code"
+                  pattern="[0-9]*"
+                  title="Please enter numbers only"
                   autoComplete="postal-code"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
