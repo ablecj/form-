@@ -1,16 +1,25 @@
-import express from 'express';
+import express, { response } from 'express';
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
+// import { User } from './Models/userModel.js';
+import userRouter from './Routes/userRoute.js'
+import cors from 'cors';
 
 const app = express();
 dotenv.config();
 
+// Middleware for parsing the body 
+app.use(express.json());
 
+// middilewares for handling cors policy
+app.use(cors());
 
 app.get('/',(req,res)=>{
     console.log(res)
     return res.status(200).send('Welcome')
 });
+
+app.use('/user', userRouter)
 
 
 const PORT =  8000;
