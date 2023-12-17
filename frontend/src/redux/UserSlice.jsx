@@ -6,7 +6,7 @@ export const submitUserData = createAsyncThunk(
   'user/submit',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:8000/user', formData);
+      const response = await axios.post('https://form-83we.onrender.com/user', formData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
