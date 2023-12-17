@@ -19,7 +19,7 @@ const EditUser = () => {
   
     const fetchUserData = async () => {
         try {
-          const response = await axios.get(`http://localhost:8000/user/${id}`);
+          const response = await axios.get(`https://form-83we.onrender.com/user/${id}`);
           setFormData(response.data); // Assuming the API response contains user data
         } catch (error) {
           console.error('Error fetching user data:', error);
