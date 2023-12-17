@@ -46,7 +46,7 @@ const EditUser = () => {
     const handleFormSubmit = async (event) => {
       event.preventDefault();
       try {
-        await axios.put(`http://localhost:8000/user/${id}`, formData);
+        await axios.put(`https://form-83we.onrender.com/user/${id}`, formData);
         console.log('User data updated:', formData);
         // Redirect or perform any necessary actions after saving the data
         navigate("/user")
