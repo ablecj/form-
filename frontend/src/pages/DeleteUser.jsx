@@ -10,7 +10,7 @@ const DeleteUser = () => {
     const navigate = useNavigate()
     const handleDelete = async()=>{
         try {
-            await axios.delete(`http://localhost:8000/user/${id}`);
+            await axios.delete(`https://form-83we.onrender.com/user/${id}`);
             navigate('/user');
         } catch (error) {
          console.log(error,"error")   
