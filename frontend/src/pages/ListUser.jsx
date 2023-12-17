@@ -13,7 +13,7 @@ const ListUser = () => {
     console.log(users,"user")
     useEffect(()=>{
         setLoader(true)
-        axios.get('http://localhost:8000/user')
+        axios.get('https://form-83we.onrender.com/user')
         .then((res)=>{
             setUser(res.data.data);
             setLoader(false)
