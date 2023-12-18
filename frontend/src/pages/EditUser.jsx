@@ -1,13 +1,17 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserData, updateUser } from '../redux/UserSlice';
 import BackButton from '../components/BackButton';
 
 const EditUser = () => {
 
     const { id } = useParams();
-    console.log(id,"userid")
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const userData = useSelector((state) => state.user.userData);
+
     const initialFormData = {
       firstname: '',
       secondname: '',
@@ -17,43 +21,24 @@ const EditUser = () => {
     const [formData, setFormData] = useState(initialFormData);
     console.log(formData,"form data")
   
-    const fetchUserData = async () => {
-        try {
-          const response = await axios.get(`https://form-83we.onrender.com/user/${id}`);
-          setFormData(response.data); // Assuming the API response contains user data
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      };
-    
-      useEffect(() => {
-        if (id) {
-          fetchUserData();
-        }
-      }, [id]);
-  
     useEffect(() => {
-      fetchUserData();
-    }, [id]);
-  
-    const handleInputChange = (event) => {
-      const { name, value } = event.target;
-      setFormData({ ...formData, [name]: value });
-    };
-  
-    const navigate = useNavigate();
+    dispatch(fetchUserData(id));
+  }, [dispatch, id]);
 
-    const handleFormSubmit = async (event) => {
-      event.preventDefault();
-      try {
-        await axios.put(`https://form-83we.onrender.com/user/${id}`, formData);
-        console.log('User data updated:', formData);
-        // Redirect or perform any necessary actions after saving the data
-        navigate("/user")
-      } catch (error) {
-        console.error('Error updating user data:', error);
-      }
-    };
+  useEffect(() => {
+    setFormData(userData);
+  }, [userData]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    dispatch(updateUser({ id, formData }));
+    navigate('/user');
+  };
 
   return (
     <>

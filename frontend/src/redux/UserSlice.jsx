@@ -14,14 +14,41 @@ export const submitUserData = createAsyncThunk(
   }
 );
 
+export const fetchUsers = createAsyncThunk('user/fetchUsers', async () => {
+  const response = await axios.get('https://form-83we.onrender.com/user');
+  return response.data.data;
+});
+
+export const fetchUserData = createAsyncThunk('user/fetchUserData', async (id) => {
+  const response = await axios.get(`https://form-83we.onrender.com/user/${id}`);
+  return response.data;
+});
+
+export const updateUser = createAsyncThunk('user/updateUser', async ({ id, formData }) => {
+  await axios.put(`https://form-83we.onrender.com/user/${id}`, formData);
+});
+
+export const deleteUser = createAsyncThunk('user/deleteUser', async (id) => {
+  await axios.delete(`https://form-83we.onrender.com/user/${id}`);
+  return id;
+});
+
 // User slice
 const userSlice = createSlice({
   name: 'user',
   initialState: {
+    users: [],
+    userData: {
+      firstname: '',
+      secondname: '',
+      email: '',
+      address: '',
+    },
     status: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
     error: null,
   },
   reducers: {},
+
   extraReducers: (builder) => {
     builder
       .addCase(submitUserData.pending, (state) => {
@@ -34,6 +61,14 @@ const userSlice = createSlice({
       .addCase(submitUserData.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.status = 'succeeded';
+      })
+      .addCase(fetchUserData.fulfilled, (state, action) => {
+        state.userData = action.payload;
+        state.status = 'succeeded';
       });
   },
 });

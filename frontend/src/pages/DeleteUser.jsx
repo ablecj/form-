@@ -1,20 +1,20 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
+import {useDispatch} from 'react-redux';
+import { deleteUser } from '../redux/UserSlice';
 
 const DeleteUser = () => {
 
     const {id} = useParams();
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+
     const handleDelete = async()=>{
-        try {
-            await axios.delete(`https://form-83we.onrender.com/user/${id}`);
-            navigate('/user');
-        } catch (error) {
-         console.log(error,"error")   
-        }
+      dispatch(deleteUser(id)); 
+      navigate('/user');
     }
 
 
