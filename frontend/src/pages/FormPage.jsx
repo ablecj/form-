@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import PhonePicker from "../components/PhonePicker";
 import CountrySelection from "../components/CountrySelection";
-// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { submitUserData } from "../redux/UserSlice";
@@ -11,7 +10,8 @@ import { submitUserData } from "../redux/UserSlice";
 const FormPage = () => {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
 
   const initialFormData = {
     firstname: '',
@@ -22,9 +22,8 @@ const FormPage = () => {
 
   const [formData, setFormData] = useState(initialFormData);
   
-  console.log(formData,"form data")
 
-     // Update form data when inputs change
+  // Update form data when inputs change
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -32,13 +31,12 @@ const FormPage = () => {
 // form submission
 const handleFormSubmit = async (event) => {
   event.preventDefault();
-  dispatch(submitUserData(formData))
-    .then(() => {
-      navigate('/user');
-    })
-    .catch((error) => {
-      console.log('Error submitting data:', error);
-    });
+  try {
+    await dispatch(submitUserData(formData));
+    navigate('/user');
+  } catch (error) {
+    console.log('Error submitting data:', error);
+  }
 };
 
 

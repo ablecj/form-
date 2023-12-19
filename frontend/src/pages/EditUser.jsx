@@ -19,7 +19,6 @@ const EditUser = () => {
       address: '',
     };
     const [formData, setFormData] = useState(initialFormData);
-    console.log(formData,"form data")
   
     useEffect(() => {
     dispatch(fetchUserData(id));

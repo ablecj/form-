@@ -27,7 +27,6 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async (id) =
 export const updateUser = createAsyncThunk('user/updateUser', async ({ id, formData }) => {
   try {
     const response = await axios.put(`https://form-83we.onrender.com/user/${id}`, formData);
-    console.log(response.data, "updated data"); // Log the response data
     return response.data; 
   } catch (error) {
     // Handle errors appropriately
