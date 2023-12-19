@@ -13,10 +13,11 @@ const DeleteUser = () => {
 
     const users = useSelector(state=> state.user.users);
 
-    const handleDelete = async()=>{
-      dispatch(deleteUser(id)); 
+    const handleDelete = async () => {
+      await dispatch(deleteUser(id)); // Wait for deletion
+      dispatch(fetchUsers()); 
       navigate('/user');
-    }
+    };
 
     useEffect(()=>{
       // fetch the users after deletion

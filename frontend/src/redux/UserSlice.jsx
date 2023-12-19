@@ -25,7 +25,15 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async (id) =
 });
 
 export const updateUser = createAsyncThunk('user/updateUser', async ({ id, formData }) => {
-  await axios.put(`https://form-83we.onrender.com/user/${id}`, formData);
+  try {
+    const response = await axios.put(`https://form-83we.onrender.com/user/${id}`, formData);
+    console.log(response.data, "updated data"); // Log the response data
+    return response.data; 
+  } catch (error) {
+    // Handle errors appropriately
+    console.error("Error updating user:", error);
+    throw error;
+  }
 });
 
 export const deleteUser = createAsyncThunk('user/deleteUser', async (id) => {
@@ -76,6 +84,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.fulfilled,(state,action)=>{
         state.userData = action.payload;
+        state.status = 'succeeded';
       });
   },
 });

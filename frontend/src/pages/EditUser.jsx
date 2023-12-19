@@ -26,7 +26,15 @@ const EditUser = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    setFormData(userData);
+    if (userData) {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        firstname: userData.firstname || '',
+        secondname: userData.secondname || '',
+        email: userData.email || '',
+        address: userData.address || '',
+      }));
+    }
   }, [userData]);
 
   const handleInputChange = (event) => {
@@ -37,6 +45,7 @@ const EditUser = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     dispatch(updateUser({ id, formData }));
+    console.log(updateUser,"updateUser")
     navigate('/user');
   };
 
