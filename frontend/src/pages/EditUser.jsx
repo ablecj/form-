@@ -44,8 +44,8 @@ const EditUser = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    dispatch(updateUser({ id, formData }));
-    console.log(updateUser,"updateUser")
+    await dispatch(updateUser({ id, formData }));
+    dispatch(fetchUserData(id)); 
     navigate('/user');
   };
 
